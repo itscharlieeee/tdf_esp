@@ -5,15 +5,16 @@ import pandas as pd
 import re
 from nltk.stem import SnowballStemmer
 
-st.title("🔍 Demo TF-IDF en Español")
+st.title("💻 Demo TF-IDF en Español: Tecnología y Trabajo Remoto")
 
 # Documentos de ejemplo
-default_docs = """El perro ladra fuerte en el parque.
-El gato maúlla suavemente durante la noche.
-El perro y el gato juegan juntos en el jardín.
-Los niños corren y se divierten en el parque.
-La música suena muy alta en la fiesta.
-Los pájaros cantan hermosas melodías al amanecer."""
+default_docs = """El trabajo remoto permite a los empleados laborar desde casa con flexibilidad.
+Las reuniones virtuales se realizan a través de plataformas como Zoom o Teams.
+El equipo de desarrollo colabora en proyectos mediante GitHub.
+La ciberseguridad es esencial para proteger la información de la empresa.
+Muchos trabajadores usan escritorios ergonómicos para mejorar su postura.
+Las startups tecnológicas están contratando diseñadores y programadores en todo el mundo.
+La inteligencia artificial está transformando los procesos empresariales."""
 
 # Stemmer en español
 stemmer = SnowballStemmer("spanish")
@@ -33,31 +34,30 @@ def tokenize_and_stem(text):
 col1, col2 = st.columns([2, 1])
 
 with col1:
-    text_input = st.text_area("📝 Documentos (uno por línea):", default_docs, height=150)
-    question = st.text_input("❓ Escribe tu pregunta:", "¿Dónde juegan el perro y el gato?")
+    text_input = st.text_area("📝 Documentos (uno por línea):", default_docs, height=170)
+    question = st.text_input("❓ Escribe tu pregunta:", "¿Qué plataformas se usan para reuniones virtuales?")
 
 with col2:
     st.markdown("### 💡 Preguntas sugeridas:")
     
-    # NUEVAS preguntas optimizadas para mayor similitud
-    if st.button("¿Dónde juegan el perro y el gato?", use_container_width=True):
-        st.session_state.question = "¿Dónde juegan el perro y el gato?"
+    if st.button("¿Qué plataformas se usan para reuniones virtuales?", use_container_width=True):
+        st.session_state.question = "¿Qué plataformas se usan para reuniones virtuales?"
         st.rerun()
     
-    if st.button("¿Qué hacen los niños en el parque?", use_container_width=True):
-        st.session_state.question = "¿Qué hacen los niños en el parque?"
+    if st.button("¿Qué herramientas usan los desarrolladores para colaborar?", use_container_width=True):
+        st.session_state.question = "¿Qué herramientas usan los desarrolladores para colaborar?"
         st.rerun()
         
-    if st.button("¿Cuándo cantan los pájaros?", use_container_width=True):
-        st.session_state.question = "¿Cuándo cantan los pájaros?"
+    if st.button("¿Cómo mejora la postura un trabajador remoto?", use_container_width=True):
+        st.session_state.question = "¿Cómo mejora la postura un trabajador remoto?"
         st.rerun()
         
-    if st.button("¿Dónde suena la música alta?", use_container_width=True):
-        st.session_state.question = "¿Dónde suena la música alta?"
+    if st.button("¿Qué papel cumple la ciberseguridad?", use_container_width=True):
+        st.session_state.question = "¿Qué papel cumple la ciberseguridad?"
         st.rerun()
         
-    if st.button("¿Qué animal maúlla durante la noche?", use_container_width=True):
-        st.session_state.question = "¿Qué animal maúlla durante la noche?"
+    if st.button("¿Qué área está siendo transformada por la inteligencia artificial?", use_container_width=True):
+        st.session_state.question = "¿Qué área está siendo transformada por la inteligencia artificial?"
         st.rerun()
 
 # Actualizar pregunta si se seleccionó una sugerida
@@ -75,7 +75,7 @@ if st.button("🔍 Analizar", type="primary"):
         # Crear vectorizador TF-IDF
         vectorizer = TfidfVectorizer(
             tokenizer=tokenize_and_stem,
-            min_df=1  # Incluir todas las palabras
+            min_df=1
         )
         
         # Ajustar con documentos
@@ -103,7 +103,7 @@ if st.button("🔍 Analizar", type="primary"):
         st.markdown("### 🎯 Respuesta")
         st.markdown(f"**Tu pregunta:** {question}")
         
-        if best_score > 0.01:  # Umbral muy bajo
+        if best_score > 0.01:
             st.success(f"**Respuesta:** {best_doc}")
             st.info(f"📈 Similitud: {best_score:.3f}")
         else:
